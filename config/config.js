@@ -1,15 +1,15 @@
 module.exports = {
   //MongoDB configuration
   development: {
-    db: 'mongodb://127.0.0.1:27017/voucha',
+    db: process.env.DATABASE_URI,
     app: {
       name: 'voucha',
     },
   },
   production: {
-    db: 'mongodb://<username>:<password>@ds157325.mlab.com:57325/graphql-api',
+    db: process.env.DATABASE_URI,
     app: {
-      name: 'graphql',
+      name: 'voucha',
     },
   },
 };
