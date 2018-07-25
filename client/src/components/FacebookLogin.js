@@ -44,13 +44,21 @@ class FacebookLogin extends Component {
    */
   facebookLoginHandler = (response) => {
     if (response.status === 'connected') {
-      this.FB.api('/me', (userData) => {
-        let result = {
-          ...response,
-          user: userData,
-        };
-        this.props.onLogin(true, result);
-      });
+      this.FB.api(
+        '/me',
+        {
+          fields:
+            'id,about,age_range,picture,birthday,context,email,first_name,gender,hometown,link,location,middle_name,name,timezone,website,work',
+        },
+        (userData) => {
+          let result = {
+            ...response,
+            user: userData,
+          };
+          console.log('result :', result);
+          this.props.onLogin(true, result);
+        }
+      );
     } else {
       this.props.onLogin(false);
     }

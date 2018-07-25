@@ -1,23 +1,28 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
-const UserType = require('../types/user');
+const UserType = require('./UserType');
 const UserModel = require('../../models/user');
 
-exports.update = {
-  type: UserType.userType,
+const updateUser = {
+  type: UserType,
   args: {
     id: {
       name: 'id',
       type: new GraphQLNonNull(GraphQLString),
     },
-    name: {
+    firstname: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    lastname: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  resolve(root, params) {
+  resolve(root, args) {
     return UserModel.findByIdAndUpdate(
-      params.id,
-      { $set: { name: params.name } },
+      args.id,
+      { $set: { firstname: args.firstname, lastname: args.lastname } },
       { new: true }
     ).catch((err) => new Error(err));
   },
 };
+
+module.exports = updateUser;

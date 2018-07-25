@@ -1,20 +1,26 @@
-const { GraphQLNonNull, GraphQLString } = require('graphql');
-const UserType = require('../types/user');
-const UserModel = require('../../models/user');
+const User = require('../../models/user');
+const UserType = require('./UserType');
+const UserInputType = require('./UserInputType');
 
-exports.add = {
-  type: UserType.userType,
+const createUser = {
+  type: UserType,
   args: {
-    name: {
-      type: new GraphQLNonNull(GraphQLString),
+    user: {
+      type: UserInputType,
     },
   },
-  resolve(root, params) {
-    const uModel = new UserModel(params);
-    const newUser = uModel.save();
-    if (!newUser) {
+  resolve(source, args) {
+    //return user arguments
+    newUser = new User({
+      firstname: args.user.firstname,
+      lastname: args.user.lastname,
+    });
+    const createdUser = newUser.save();
+    if (!createdUser) {
       throw new Error('Error');
     }
-    return newUser;
+    return createdUser;
   },
 };
+
+module.exports = createUser;

@@ -1,19 +1,21 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
-const UserType = require('../types/user');
+const UserType = require('./UserType');
 const UserModel = require('../../models/user');
 
-exports.remove = {
-  type: UserType.userType,
+const removeUser = {
+  type: UserType,
   args: {
     id: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  resolve(root, params) {
-    const removed_user = UserModel.findByIdAndRemove(params.id).exec();
+  resolve(root, args) {
+    const removed_user = UserModel.findByIdAndRemove(args.id).exec();
     if (!removed_user) {
       throw new Error('Error');
     }
-    return removeduser;
+    return removed_user;
   },
 };
+
+module.exports = removeUser;

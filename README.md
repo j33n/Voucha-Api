@@ -14,19 +14,28 @@ Below is how to set up and run the application:
 
 ## Development set up
 
-- Check that python 3, pip, virtualenv and postgress are installed
+- Check if NodeJS, npm and MongoDB are setup, if not follow their relevant documentation for installation.
 
 - Clone the Voucha-Api repo and switch into it
     ```
     git clone https://github.com/j33n/Voucha-Api.git && cd Voucha-Api
     ```
+- Install server dependencies
+    ```
+    yarn install
+    ```
+- switch to client folder and install client dependencies
+    ```
+    cd client && yarn install
+    ```
+- Run `yarn dev` to start both the server and the client
 
 ## Built with
     >- NodeJS
     >- Express
     >- ReactJS
     >- Grapghql
-    >- Postgres
+    >- MongoDB
 
 ## Contribution guide
 ##### Contributing
